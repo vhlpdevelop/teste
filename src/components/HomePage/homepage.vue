@@ -402,7 +402,7 @@ export default {
   created() {
     this.checkinToken().then( () => {
       this.$router.push({
-        name: "Página Inicial",
+        name: "home",
       });
     })
   },

@@ -1,5 +1,5 @@
-const url = "http://localhost:3000/cart/";
-
+//const url = "http://localhost:3000/cart/";
+const url = "https://api-correcutia.herokuapp.com/cart/"
 
 let cart = window.localStorage.getItem('cart');
 let cartSize = window.localStorage.getItem('cartSize');

@@ -3,8 +3,8 @@
 
 import axios from 'axios'
 
-//const url = 'https://lobby-contador.herokuapp.com/'
-const url = 'http://localhost:3000/auth/'
+const url = 'https://api-correcutia.herokuapp.com/auth/'
+//const url = 'http://localhost:3000/auth/'
 
 const state = {
     respostaUser: '',

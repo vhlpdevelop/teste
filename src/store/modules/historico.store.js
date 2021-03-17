@@ -1,4 +1,5 @@
-const url = "http://localhost:3000/historico/";
+const url = "https://api-correcutia.herokuapp.com/historico/"
+//const url = "http://localhost:3000/historico/";
 import axios from "axios";
 const state = {
   historico: [],

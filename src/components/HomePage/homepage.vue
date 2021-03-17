@@ -259,7 +259,7 @@
     </v-app-bar>
 
     <v-content>
-      <router-view />
+      <router-view  />
       <div v-show="showDialog" v-if="showDialog">
         <dialogAccount
           :msg="message"
@@ -400,8 +400,11 @@ export default {
     });
   },
   created() {
-    //this.$router.push("home");
-    this.checkinToken()
+    this.checkinToken().then( () => {
+      this.$router.push({
+        name: "Página Inicial",
+      });
+    })
   },
 };
 </script>

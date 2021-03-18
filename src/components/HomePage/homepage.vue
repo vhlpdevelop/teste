@@ -400,11 +400,7 @@ export default {
     });
   },
   created() {
-    this.checkinToken().then( () => {
-      this.$router.push({
-        name: "home",
-      });
-    })
+    this.checkinToken()
   },
 };
 </script>

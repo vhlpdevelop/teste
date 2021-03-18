@@ -306,7 +306,7 @@ export default {
       {
         title: "Contato",
         icon: "mdi-phone",
-        path: "/info",
+        path: "/contact",
       },
       {
         title: "Explorar",

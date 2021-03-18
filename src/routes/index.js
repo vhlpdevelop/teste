@@ -20,10 +20,6 @@ export default new Router({
       props:true
     },
     {
-      path: '/*',
-      component: () => import ('../components/Resources/pageNotfound'),
-    },
-    {
       path: '/verifyEmail/:id',
       name: 'verifyEmail',
       component: () => import ('../components/Account/verifyEmail'),

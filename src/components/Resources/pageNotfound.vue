@@ -19,7 +19,7 @@ export default {
     
 }
 </script>
-<style scoped>
+<style>
     #Abody {
   background-color: #95c2de;
 }

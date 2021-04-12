@@ -111,13 +111,13 @@
                 color="green"
                 :value="getFreteSedex"
               ></v-radio>
-              <div><strong>R$ {{freteSedex}}</strong></div>
+              <div><strong>R$ {{getFreteSedex}}</strong></div>
               <v-radio
                 label="Pac"
                 color="blue"
                 :value="getFretePac"
               ></v-radio>
-              <div><strong>R$ {{freteSedex}}</strong></div>
+              <div><strong>R$ {{getFretePac}}</strong></div>
                 </v-radio-group>
               </td>
               </tr>

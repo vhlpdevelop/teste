@@ -20,7 +20,7 @@
           <span class="mr-2">Contato</span>
         </v-btn>
         <v-btn plain text to="/shop">
-          <span class="mr-2">Explorar</span>
+          <span class="mr-2">Loja</span>
         </v-btn>
         <v-menu>
           <template v-slot:activator="{ on }">
@@ -309,7 +309,7 @@ export default {
         path: "/contact",
       },
       {
-        title: "Explorar",
+        title: "Loja",
         icon: "mdi-shopping-search",
         path: "/shop",
       },

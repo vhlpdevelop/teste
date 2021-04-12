@@ -182,16 +182,9 @@ export default {
     page: 1,
     items: [
       {
-        name: "Cutia",
+        name: "Natureza",
         children: [
-          { name: "Mostrar", id:"cutia" },
-        ],
-      },
-      {
-        name: "Bonitense",
-        children: [
-          { id: "bonitense", name: "Mostrar" },
-          
+          { name: "Mostrar", id:"natureza" },
         ],
       },
     ],

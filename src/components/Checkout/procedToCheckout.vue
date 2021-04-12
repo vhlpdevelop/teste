@@ -96,7 +96,7 @@
         style="background-color: lightgray"
       >
         <p class="headline">Informações finais</p>
-        <p class="overline">Nós utilizamos Sedex para entrega disponível</p>
+        <p class="overline">Selecione o tipo de entrega desejada, lembrando que o produto pode chegar de 7 até 15 dias</p>
         <v-simple-table>
           <template v-slot:default>
             <tbody>
@@ -110,12 +110,14 @@
                 label="Sedex"
                 color="green"
                 :value="getFreteSedex"
-              ><strong>R$ {{freteSedex}}</strong></v-radio>
+              ></v-radio>
+              <div><strong>R$ {{freteSedex}}</strong></div>
               <v-radio
                 label="Pac"
                 color="blue"
                 :value="getFretePac"
-              ><strong>R$ {{fretePac}}</strong></v-radio>
+              ></v-radio>
+              <div><strong>R$ {{freteSedex}}</strong></div>
                 </v-radio-group>
               </td>
               </tr>

@@ -107,15 +107,15 @@
               column
                 >
               <v-radio
-                label="Sedex - R$ {{freteSedex}}"
+                label="Sedex"
                 color="green"
                 :value="getFreteSedex"
-              ></v-radio>
+              ><strong>R$ {{freteSedex}}</strong></v-radio>
               <v-radio
-                label="Pac - R$ {{fretePac}}"
+                label="Pac"
                 color="blue"
                 :value="getFretePac"
-              ></v-radio>
+              ><strong>R$ {{fretePac}}</strong></v-radio>
                 </v-radio-group>
               </td>
               </tr>

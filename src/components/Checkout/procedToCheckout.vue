@@ -105,6 +105,7 @@
                 <v-radio-group
               v-model="frete"
               column
+              @change="updateTotal()"
                 >
               <v-radio
                 label="Sedex"

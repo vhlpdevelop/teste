@@ -218,7 +218,7 @@ export default {
       this.fetchFrete(this.user.endereco).then(() => {
         //console.log(this.getFrete);
         this.loadingFrete = false;
-        this.frete = this.getFrete;
+        this.frete = this.getFreteSedex;
         this.updateTotal();
       });
     },

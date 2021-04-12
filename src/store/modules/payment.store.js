@@ -8,7 +8,8 @@ const state = {
   sessionID: "",
   status: "",
   plan: "",
-  frete: "",
+  freteSedex: "",
+  fretePac: "",
   freteCheck: false,
   paymentCheck: false,
   paymentData: '',
@@ -18,7 +19,8 @@ const getters = {
   getSessionID: (state) => state.sessionID,
   getStatus: (state) => state.status,
   getPlan: (state) => state.plan,
-  getFrete: (state) => state.frete,
+  getFreteSedex: (state) => state.freteSedex,
+  getFretePac: (state) => state.fretePac,
   getFreteCheck: (state) => state.freteCheck,
   getPaymentCheck: (state) => state.paymentCheck,
   getPaymentData: (state) => state.paymentData
@@ -45,11 +47,18 @@ const actions = {
   },
   async fetchFrete({commit}, itemData){
     try{
-      await axios.post(url + "fetchFrete", itemData).then( function(response){
-        commit("SetFrete", response.data.valor)
+      await axios.post(url + "fetchFreteSedex", itemData).then( function(response){
+        commit("SetFreteSedex", response.data.valor)
         commit("SetFreteCheck", response.data.ok)
       }, (error)=>{ //Caso de erro
-        commit("SetFrete", '0')
+        commit("SetFreteSedex", '0')
+        commit("SetFreteCheck", false)
+      });
+      await axios.post(url + "fetchFretePac", itemData).then( function(response){
+        commit("SetFretePac", response.data.valor)
+        commit("SetFreteCheck", response.data.ok)
+      }, (error)=>{ //Caso de erro
+        commit("SetFretePac", '0')
         commit("SetFreteCheck", false)
       });
     }catch(e){
@@ -116,7 +125,8 @@ const mutations = {
   SetPaymentData: (state, paymentData) => (state.paymentData = paymentData),
   SetStatus: (state, status) => (state.status = status),
   SetPlan: (state, plan) => (state.plan = plan),
-  SetFrete: (state, frete) => (state.frete = frete),
+  SetFreteSedex: (state, frete) => (state.freteSedex = frete),
+  SetFretePac: (state, frete) => (state.fretePac = frete),
   SetFreteCheck: (state, freteCheck) => (state.freteCheck = freteCheck)
 };
 

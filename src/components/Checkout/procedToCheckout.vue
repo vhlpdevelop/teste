@@ -101,10 +101,23 @@
           <template v-slot:default>
             <tbody>
               <tr>
-                <td>Valor Frete</td>
                 <td class="text-right" style="width: 50px">
-                  <b>R${{ frete }}</b>
-                </td>
+                <v-radio-group
+              v-model="frete"
+              column
+                >
+              <v-radio
+                label="Sedex - R$ {{freteSedex}}"
+                color="green"
+                :value="getFreteSedex"
+              ></v-radio>
+              <v-radio
+                label="Pac - R$ {{fretePac}}"
+                color="blue"
+                :value="getFretePac"
+              ></v-radio>
+                </v-radio-group>
+              </td>
               </tr>
               <tr>
                 <td>Total</td>
@@ -146,6 +159,8 @@ export default {
     snackAlert: false,
     total: 0,
     frete: 0,
+    freteSedex: 0,
+    fretePac: 0,
     user: {
       endereco: {
         rua: "",
@@ -182,7 +197,8 @@ export default {
       "getStatus",
       "getPlan",
       "getCart",
-      "getFrete",
+      "getFreteSedex",
+      "getFretePac",
       "getFreteCheck",
     ]),
   },

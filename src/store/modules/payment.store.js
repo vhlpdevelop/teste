@@ -50,15 +50,15 @@ const actions = {
       await axios.post(url + "fetchFreteSedex", itemData).then( function(response){
         commit("SetFreteSedex", response.data.valor)
         commit("SetFreteCheck", response.data.ok)
+        await axios.post(url + "fetchFretePac", itemData).then( function(response){
+          commit("SetFretePac", response.data.valor)
+          commit("SetFreteCheck", response.data.ok)
+        }, (error)=>{ //Caso de erro
+          commit("SetFretePac", '0')
+          commit("SetFreteCheck", false)
+        });
       }, (error)=>{ //Caso de erro
         commit("SetFreteSedex", '0')
-        commit("SetFreteCheck", false)
-      });
-      await axios.post(url + "fetchFretePac", itemData).then( function(response){
-        commit("SetFretePac", response.data.valor)
-        commit("SetFreteCheck", response.data.ok)
-      }, (error)=>{ //Caso de erro
-        commit("SetFretePac", '0')
         commit("SetFreteCheck", false)
       });
     }catch(e){

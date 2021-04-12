@@ -174,14 +174,6 @@ export default {
       "https://secure.mlstatic.com/sdk/javascript/v1/mercadopago.js"
     );
     document.head.appendChild(mercadopago);
-    /*
-    let mercadoPagoSec = document.createElement("script")
-    mercadoPagoSec.setAttribute("id", "mercadopagosecurity");
-    mercadoPagoSec.setAttribute(
-      "src",
-      "https://www.mercadopago.com/v2/security.js"
-    );
-    */
   },
   computed: {
     ...mapGetters([

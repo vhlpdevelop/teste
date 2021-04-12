@@ -58,6 +58,7 @@
                         class="mx-auto"
                         color="grey lighten-4"
                         max-width="600"
+                        min-width="200"
                       >
                         <v-img
                           class="white--text align-end"

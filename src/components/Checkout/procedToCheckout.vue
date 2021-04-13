@@ -242,12 +242,17 @@ export default {
       this.loading = true;
       this.snackAlert = false;
       let tipo = '';
+      let valor = 0
       if(this.frete >0 && this.frete < 3){
-        if(this.frete === 1)
+        if(this.frete === 1){
           tipo = 'Sedex'
+          valor = parseFloat(this.getFreteSedex)
+        }
         
-        if(this.frete === 2)
+        if(this.frete === 2){
           tipo = 'Pac'
+          valor = parseFloat(this.getFretePac)
+        }
       }
       //console.log(this.getUser);
       let object = {
@@ -261,7 +266,7 @@ export default {
         },
         frete: {
           tipo: tipo,
-          valor: this.getFrete,
+          valor: valor,
         },
         endereco: this.user.endereco,
       };

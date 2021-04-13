@@ -265,7 +265,7 @@ export default {
         },
         endereco: this.user.endereco,
       };
-
+      console.log(object)
       this.checkOutPlan(object).then((response) => {
         if (this.getStatus) {
           this.loading = false;

@@ -235,7 +235,7 @@ export default {
       for (let i = 0; i < this.getCart.length; i++) {
         this.total += this.getCart[i].preco * this.getCart[i].qtd;
       }
-      this.total = parseFloat(this.total) + parseFloat(this.frete);
+      this.total = parseFloat(this.total) + parseFloat(valor);
       this.total = this.total.toFixed(2);
     },
     payment() {

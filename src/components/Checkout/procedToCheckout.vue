@@ -110,13 +110,13 @@
               <v-radio
                 label="Sedex"
                 color="green"
-                :value="getFreteSedex"
+                :value="1"
               ></v-radio>
               <div><strong>R$ {{getFreteSedex}}</strong></div>
               <v-radio
                 label="Pac"
                 color="blue"
-                :value="getFretePac"
+                :value="2"
               ></v-radio>
               <div><strong>R$ {{getFretePac}}</strong></div>
                 </v-radio-group>
@@ -161,7 +161,7 @@ export default {
     loadingFrete: false,
     snackAlert: false,
     total: 0,
-    frete: 0,
+    frete: 1,
     freteSedex: 0,
     fretePac: 0,
     user: {
@@ -218,11 +218,19 @@ export default {
       this.fetchFrete(this.user.endereco).then(() => {
         //console.log(this.getFrete);
         this.loadingFrete = false;
-        this.frete = this.getFreteSedex;
         this.updateTotal();
       });
     },
     updateTotal() {
+      let valor = 0;
+      if(this.frete === 1){
+        //SEDEX
+        valor = this.getFreteSedex
+      }
+      if(this.frete === 2){
+        //PAC
+        valor = this.getFretePac
+      }
       this.total = 0;
       for (let i = 0; i < this.getCart.length; i++) {
         this.total += this.getCart[i].preco * this.getCart[i].qtd;
@@ -233,6 +241,14 @@ export default {
     payment() {
       this.loading = true;
       this.snackAlert = false;
+      let tipo = '';
+      if(this.frete >0 && this.frete < 3){
+        if(this.frete === 1)
+          tipo = 'Sedex'
+        
+        if(this.frete === 2)
+          tipo = 'Pac'
+      }
       //console.log(this.getUser);
       let object = {
         cart: this.getCart,
@@ -244,6 +260,7 @@ export default {
           telefone: this.getUser.telefone,
         },
         frete: {
+          tipo: tipo,
           valor: this.getFrete,
         },
         endereco: this.user.endereco,

@@ -94,7 +94,14 @@ const actions = {
   },
   async checkOutPlan({commit}, itemData){
     try{
-      await axios.post(url + "fetchProduct", itemData).then( function(response){
+      await axios.post(url + "fetchProduct", itemData,{
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Methods": "GET, POST, PATCH, PUT, DELETE, OPTIONS",
+          "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token, Authorization, Accept,charset,boundary,Content-Length"
+      }, 
+      }).then( function(response){
         commit("SetPlan", response.data)
         commit("SetStatus", true)
       }, (error)=>{ //Caso de erro

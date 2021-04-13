@@ -4,11 +4,7 @@
       <div class="row">
         <div class="col-md-5 col-sm-5 col-xs-12">
           <v-carousel>
-            <v-carousel-item
-              v-for="(img, i) in item.image"
-              :key="i"
-              :src="img"
-            >
+            <v-carousel-item v-for="(img, i) in item.image" :key="i" :src="img">
             </v-carousel-item>
           </v-carousel>
         </div>
@@ -26,25 +22,49 @@
             <p class="title">Tamanho</p>
             <v-slider
               v-model="item.num"
-              
-              :min="34"
-              :max="44"
+              :min="1"
+              :max="6"
+              :tick-labels="ticksLabels"
               step="1"
               thumb-label="always"
               ticks
             ></v-slider>
-            <p class="title">Quantidade</p>
+            <div>
+              <p class="title">Quantidade</p>
 
-            <v-text-field
-              v-model="item.qtd"
-              :rules="[rules.counter]"
-              outlined
-              single-line
-              type="number"
-              style="width: 100px"
-              :value="1"
-              dense
-            ></v-text-field>
+              <v-text-field
+                v-model="item.qtd"
+                :rules="[rules.counter]"
+                outlined
+                single-line
+                type="number"
+                style="width: 100px"
+                :value="1"
+                dense
+              ></v-text-field>
+            </div>
+            <div style="float: left">
+              <p class="title">Tipo de tira</p>
+
+              <v-combobox
+                @change="changeTira()"
+                v-model="selected"
+                :items="tiras"
+                filled
+                outlined
+                solo
+              ></v-combobox>
+            </div>
+            <div style="float: left">
+              <p class="title">Cor da Tira</p>
+              <v-combobox
+                v-model="selectedCor"
+                :items="cores"
+                filled
+                outlined
+                solo
+              ></v-combobox>
+            </div>
             <v-btn
               @click="addOnCart()"
               class="primary white--text"
@@ -81,13 +101,17 @@ export default {
   data: () => ({
     rules: {
       required: (value) => !!value || "Required.",
-      counter: (value) => value >=1 || "mínimo é 1",
+      counter: (value) => value >= 1 || "mínimo é 1",
     },
     overlay: false,
     zIndex: 0,
     tamanho: 0,
     qtd: 1,
-    
+    selected: "Tira Tradicional",
+    tiras: ["Tira Tradicional", "Tira Slim"],
+    selectedCor: "Selecione a cor",
+    cores: ["Azul Royal", "Preto", "Branco"],
+    ticksLabels: ["33/34", "35/36", "37/38", "39/40", "41/42", "43/44"],
     breadcrums: [
       {
         text: "Inicio",
@@ -106,29 +130,48 @@ export default {
       preco: "",
       id: "",
       produto: "",
+      tira: "",
+      cor: "",
       qtd: 1,
       num: "34",
-      image: []
+      id_num: "",
+      image: [],
     },
   }),
   computed: mapGetters(["getCart"]),
   methods: {
     ...mapActions(["addCart"]),
-    addOnCart() {
-      if (this.item.qtd >= 1) {
-        //console.log(this.item.num)
-        this.addCart(this.item).then((response) => {
-          //Após colocar no carrinho, mostrar ao usuário
-        });
+    changeTira() {
+      if (this.selected === "Tira Slim") {
+        this.cores = ["Perola", "Preto", "Dourado"];
       } else {
+        this.cores = ["Azul Marinho", "Preto", "Branco"];
+      }
+    },
+    addOnCart() {
+      if (this.selectedCor !== "Selecione a cor") {
+        if (this.item.qtd >= 1) {
+          //console.log(this.item.num)
+          this.item.id_num = this.item.num;
+          this.item.num = this.ticksLabels[this.item.num - 1];
+          this.item.cor = this.selectedCor;
+          this.item.tira = this.selected;
+          this.addCart(this.item).then((response) => {
+            //Após colocar no carrinho, mostrar ao usuário
+          });
+        } else {
+        }
       }
     },
   },
   created() {
-    
     if (this.object != null) {
-      //console.log(this.object)
+      //console.log(this.object);
       this.item = this.object;
+      if (this.object.tira != null) {
+        this.selected = this.object.tira;
+        this.selectedCor = this.object.cor;
+      }
     }
   },
 };

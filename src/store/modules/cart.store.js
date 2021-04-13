@@ -33,7 +33,7 @@ const actions = {
 const mutations = {
   addCart: (state, cart) => {
     const index = state.cart.findIndex(
-        (itemCart) => itemCart._id === cart._id && itemCart.num === cart.num
+        (itemCart) => itemCart._id === cart._id && itemCart.num === cart.num && itemCart.tira === cart.tira && itemCart.cor === cart.cor
       );
     if(index > -1){
         let aux = cart
@@ -59,7 +59,7 @@ const mutations = {
   },
   DeleteItem: (state, item) => {
     const index = state.cart.findIndex(
-      (itemCart) => itemCart._id === item._id && itemCart.num === item.num
+      (itemCart) => itemCart._id === item._id && itemCart.id_num === item.id_num 
     );
       
     if (index !== -1) {

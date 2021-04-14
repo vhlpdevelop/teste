@@ -160,6 +160,7 @@
 <script>
 import { mapState, mapActions, mapGetters } from "vuex";
 export default {
+  props: ["object"],
   data: () => ({
     select: "Novos",
     selectedTree: [],
@@ -187,9 +188,18 @@ export default {
           { name: "Mostrar", id:"natureza" },
         ],
       },
+      {
+        name: "Cutia",
+        children: [
+          { name: "Mostrar", id:"cutia" },
+        ],
+      },
     ],
   }),
   created(){
+    if(this.object != null){
+        this.search = this.object
+      }
     this.fetchProduct().then(()=>{
      // console.log("Buscando....")
       if(this.getProduct !== undefined){

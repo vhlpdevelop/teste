@@ -18,8 +18,12 @@
             size="128"
           >
             <v-img :src="object.picture_url"></v-img>
+            
           </v-avatar>
                     
+                </v-col>
+                <v-col cols="12" md="12">
+                  <div style="font-size:small">{{ object.description }}</div>
                 </v-col>
                 <v-col cols="12" md="12">
                   <div class="grey--text">Produto</div>

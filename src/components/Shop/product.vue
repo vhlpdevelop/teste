@@ -110,7 +110,7 @@ export default {
     selected: "Tira Tradicional",
     tiras: ["Tira Tradicional", "Tira Slim"],
     selectedCor: "Selecione a cor",
-    cores: ["Azul Royal", "Preto", "Branco"],
+    cores: ["Azul Marinho", "Preto", "Branco"],
     ticksLabels: ["33/34", "35/36", "37/38", "39/40", "41/42", "43/44"],
     breadcrums: [
       {

@@ -225,6 +225,9 @@ export default {
       for (let i = 0; i < this.getCart.length; i++) {
         this.total += this.getCart[i].preco * this.getCart[i].qtd;
       }
+      if(this.getCart.length > 1){
+        this.total+= this.total -( this.total*0.1)
+      }
       this.total = this.total.toFixed(2);
     },
     ToCheckout() {

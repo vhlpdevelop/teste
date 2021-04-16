@@ -235,7 +235,9 @@ export default {
       for (let i = 0; i < this.getCart.length; i++) {
         this.total += this.getCart[i].preco * this.getCart[i].qtd;
       }
-      this.total = parseFloat(this.total) + parseFloat(valor);
+      if(this.valor !== 0){
+        this.total = parseFloat(this.total) + parseFloat(valor);
+      }
       this.total = this.total.toFixed(2);
     },
     payment() {
@@ -356,7 +358,7 @@ export default {
         this.user.endereco.bairro = this.getUser.endereco.bairro;
         this.user.endereco.estado = this.getUser.endereco.estado;
         this.user.endereco.cidade = this.getUser.endereco.cidade;
-        //this.updateTotal();
+        this.updateTotal();
       } else {
         //TRATAR ISSO!
         //console.log("ERROR");

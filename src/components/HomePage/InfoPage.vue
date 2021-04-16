@@ -97,7 +97,7 @@
                     </v-img>
 
                     <v-card-text class="text--primary text-center">
-                      <div>10% de desconto!</div>
+                      <div>Diversos tipos de modelos!</div>
                       <div>Peça já</div>
                     </v-card-text>
 

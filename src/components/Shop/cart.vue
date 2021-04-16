@@ -67,40 +67,36 @@
               class="hidden-md-and-up"
             >
               <template v-slot:item="props">
-                
                 <tr v-if="isMobile">
                   <td>
                     <v-avatar>
-                    <v-img :src="props.item.image[0]"></v-img>
+                      <v-img :src="props.item.image[0]"></v-img>
                     </v-avatar>
                   </td>
                   <td class="text-center pa-5">
                     <div>
-                    <span style="color: grey">Produto</span><br />
-                    {{
-                          props.item.produto
-                        }}
+                      <span style="color: grey">Produto</span><br />
+                      {{ props.item.produto }}
                     </div>
                     <div>
-                    <br /><span style="color: grey">Valor</span><br />R${{
-                          props.item.preco
-                        }}
-                        </div>
+                      <br /><span style="color: grey">Valor</span><br />R${{
+                        props.item.preco
+                      }}
+                    </div>
                   </td>
                   <td class="text-center pa-5">
                     <div>
-                     <span style="color: grey">Tamanho</span><br />
-                    {{
-                          props.item.num
-                        }}
-                      </div>
-                      <div>
-                        <br /><span style="color: grey">Total</span><br />R${{ (props.item.preco * props.item.qtd).toFixed(2) }}
-                      </div>
-                      
+                      <span style="color: grey">Tamanho</span><br />
+                      {{ props.item.num }}
+                    </div>
+                    <div>
+                      <br /><span style="color: grey">Total</span><br />R${{
+                        (props.item.preco * props.item.qtd).toFixed(2)
+                      }}
+                    </div>
                   </td>
                   <td class="flex-item">
-                     <v-text-field
+                    <v-text-field
                       class=""
                       label="Outlined"
                       style="width: 40px"
@@ -132,11 +128,20 @@
                     <b>R${{ total }}</b>
                   </td>
                 </tr>
+                <tr v-show="checkDesconto">
+                  <td class="green--text">Desconto</td>
+                  <td class="text-right">
+                    <b>R${{ desconto }}</b>
+                  </td>
+                </tr>
               </tbody>
             </template>
           </v-simple-table>
           <div class="text-center">
-            <v-btn @click="ToCheckout()" class="primary white--text mt-5" outlined
+            <v-btn
+              @click="ToCheckout()"
+              class="primary white--text mt-5"
+              outlined
               >Ir para o pagamento</v-btn
             >
           </div>
@@ -168,6 +173,8 @@ export default {
     overlay: false,
     zIndex: 0,
     isMobile: false,
+    desconto: 0,
+    checkDesconto: false,
     headers: [
       {
         text: "Item",
@@ -200,9 +207,8 @@ export default {
     if (this.getCart.length === 0) {
       this.overlay = true;
     } else {
-
       this.items = this.getCart;
-      console.log(this.items)
+      console.log(this.items);
       this.updateTotal();
     }
   },
@@ -222,30 +228,36 @@ export default {
     },
     updateTotal() {
       this.total = 0;
+      this.desconto = 0;
       for (let i = 0; i < this.getCart.length; i++) {
+        if (this.getCart[i].qtd > 1) {
+          this.checkDesconto = true;
+        }
         this.total += this.getCart[i].preco * this.getCart[i].qtd;
       }
-      if(this.getCart.length > 1){
-        this.total+= this.total -( this.total*0.1)
+      if(this.checkDesconto || this.getCart.length > 1){
+        this.checkDesconto = true
+        this.desconto = this.total * 0.1;
+        this.desconto = this.desconto.toFixed(2)
+        this.total = this.total - (this.total * 0.1)
       }
       this.total = this.total.toFixed(2);
     },
     ToCheckout() {
-      if(!this.getAuth){
-      EventBus.$emit("CheckLogged"); //Emite para ver se está logado
-      }else{
+      if (!this.getAuth) {
+        EventBus.$emit("CheckLogged"); //Emite para ver se está logado
+      } else {
         this.$router.push({
-        name:'checkout',
+          name: "checkout",
         });
       }
     },
     cartRemove(item) {
       //Função remover item do cart
-      this.DeleteItem(item).then((response)=>{
+      this.DeleteItem(item).then((response) => {
         this.updateTotal();
       });
     },
-
   },
 };
 </script>

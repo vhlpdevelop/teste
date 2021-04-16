@@ -128,6 +128,12 @@
                   <b>R${{ total }}</b>
                 </td>
               </tr>
+              <tr v-show="checkDesconto">
+                  <td class="green--text">Desconto</td>
+                  <td class="text-right ">
+                    <b>R${{desconto}}</b>
+                  </td>
+                </tr>
             </tbody>
           </template>
         </v-simple-table>
@@ -162,6 +168,8 @@ export default {
     snackAlert: false,
     total: 0,
     frete: 1,
+    desconto: 0,
+    checkDesconto: false,
     freteSedex: 0,
     fretePac: 0,
     user: {
@@ -232,8 +240,18 @@ export default {
         valor = this.getFretePac
       }
       this.total = 0;
-      for (let i = 0; i < this.getCart.length; i++) {
+      this.desconto = 0;
+       for (let i = 0; i < this.getCart.length; i++) {
+        if (this.getCart[i].qtd > 1) {
+          this.checkDesconto = true;
+        }
         this.total += this.getCart[i].preco * this.getCart[i].qtd;
+      }
+      if(this.checkDesconto || this.getCart.length > 1){
+        this.checkDesconto = true
+        this.desconto = this.total * 0.1;
+        this.desconto = this.desconto.toFixed(2)
+        this.total = this.total - (this.total * 0.1)
       }
       if(this.valor !== 0){
         this.total = parseFloat(this.total) + parseFloat(valor);

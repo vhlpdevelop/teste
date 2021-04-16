@@ -46,7 +46,6 @@
                       <v-col cols="12">
                         <v-text-field
                           v-model="loginPassword"
-                          
                           :rules="[rules.required, rules.min]"
                           :type="show1 ? 'text' : 'password'"
                           name="input-10-1"
@@ -55,11 +54,10 @@
                         ></v-text-field>
                       </v-col>
                       <v-col class="d-flex" cols="12" sm="6" xsm="12">
-                        <div v-show="this.msg.ok"> 
-                        <span class="red--text">{{this.msg.msg}}</span>
+                        <div v-show="this.msg.ok">
+                          <span class="red--text">{{ this.msg.msg }}</span>
                         </div>
                       </v-col>
-                      
 
                       <v-col class="d-flex" cols="12" sm="3" xsm="12" align-end>
                         <v-btn
@@ -84,17 +82,15 @@
               </v-card>
               <v-card v-if="logged">
                 <h1>Você entrou!</h1>
-                <span>Para mais informações, entre nas configurações da conta</span>
+                <span
+                  >Para mais informações, entre nas configurações da conta</span
+                >
               </v-card>
             </v-tab-item>
             <v-tab-item>
               <v-card class="px-4" v-if="!concludedRegister">
                 <v-card-text>
-                  <v-form
-                    ref="registerForm"
-                    v-model="valid"
-                    lazy-validation
-                  >
+                  <v-form ref="registerForm" v-model="valid" lazy-validation>
                     <v-row>
                       <v-col cols="12" md="12" class="text-center">
                         <span>Dados da Conta</span>
@@ -134,7 +130,7 @@
                           required
                         ></v-text-field>
                       </v-col>
-                      
+
                       <v-col cols="12" md="12" class="text-center">
                         <span>Informações de Entrega</span>
                         <v-divider></v-divider>
@@ -235,6 +231,112 @@
                       <v-col
                         class="d-flex ml-auto"
                         cols="12"
+                        md="12"
+                        sm="3"
+                        xsm="12"
+                      >
+                        <v-checkbox
+                          v-model="termos"
+                          :rules="termosrules"
+                        >
+                          <template v-slot:label>
+                            <div>
+                              Eu concordo com os
+                              <v-tooltip bottom>
+                                <template v-slot:activator="{ on }">
+                                  <a
+                                    target="_blank"
+                                    href="/termosecondicoes"
+                                    @click.stop
+                                    v-on="on"
+                                  >
+                                    Termos e Condições de Uso
+                                  </a>
+                                </template>
+                                Abrir os termos
+                              </v-tooltip>
+                            </div>
+                          </template>
+                        </v-checkbox>
+                      </v-col>
+                      <v-col
+                        class="d-flex ml-auto"
+                        cols="12"
+                        md="12"
+                        sm="3"
+                        xsm="12"
+                      >
+                        <v-checkbox
+                          v-model="privacidade"
+                          :rules="termosrules"
+                        >
+                          <template v-slot:label>
+                            <div>
+                              Eu concordo com a
+                              <v-tooltip bottom>
+                                <template v-slot:activator="{ on }">
+                                  <a
+                                    target="_blank"
+                                    href="/politicadeprivacidade"
+                                    @click.stop
+                                    v-on="on"
+                                  >
+                                    Política de Privacidade
+                                  </a>
+                                </template>
+                                Abrir os termos
+                              </v-tooltip>
+                            </div>
+                          </template>
+                        </v-checkbox>
+                      </v-col>
+                      <v-col
+                        class="d-flex ml-auto"
+                        cols="12"
+                        md="12"
+                        sm="3"
+                        xsm="12"
+                      >
+                        <v-checkbox
+                          v-model="devolucao"
+                          :rules="termosrules"
+                        >
+                          <template v-slot:label>
+                            <div>
+                              Eu concordo com a
+                              <v-tooltip bottom>
+                                <template v-slot:activator="{ on }">
+                                  <a
+                                    target="_blank"
+                                    href="/politicadedevolucao"
+                                    @click.stop
+                                    v-on="on"
+                                  >
+                                    Política de Troca e Devolução
+                                  </a>
+                                </template>
+                                Abrir os termos
+                              </v-tooltip>
+                            </div>
+                          </template>
+                        </v-checkbox>
+                      </v-col>
+                      <v-col
+                        class="d-flex ml-auto"
+                        cols="12"
+                        md="12"
+                        sm="3"
+                        xsm="12"
+                      >
+                        <v-checkbox
+                          v-model="user.newsletter"
+                          label="Eu gostaria de receber as Newsletter da Corre Cutia"
+                        >
+                        </v-checkbox>
+                      </v-col>
+                      <v-col
+                        class="d-flex ml-auto"
+                        cols="12"
                         md="4"
                         sm="3"
                         xsm="12"
@@ -279,24 +381,30 @@ import { EventBus } from "../Dashboard/EventBus";
 import axios from "axios";
 import { mapState, mapActions, mapGetters } from "vuex";
 export default {
-  props:["msg"],
+  props: ["msg"],
   computed: {
-    ...mapGetters(["getMessageUser", "getRespostaUser", "getMessageLogin", "getAuth"]),
+    ...mapGetters([
+      "getMessageUser",
+      "getRespostaUser",
+      "getMessageLogin",
+      "getAuth",
+    ]),
     passwordMatch() {
-      return () => this.user.password === this.verify || "As senhas não são iguais";
+      return () =>
+        this.user.password === this.verify || "As senhas não são iguais";
     },
   },
   methods: {
     ...mapActions(["registrarUser", "FazerLogin"]),
     closeDialog() {
-      if(this.getAuth){
+      if (this.getAuth) {
         this.$emit("close-dialog-Login");
-      }else{
+      } else {
         this.$emit("close-dialog");
       }
     },
     async closeDialogLogin() {
-      await setTimeout(()=>{
+      await setTimeout(() => {
         this.$emit("close-dialog-Login");
       }, 3000);
     },
@@ -304,41 +412,42 @@ export default {
       var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       return re.test(String(email).toLowerCase());
     },
-    login(){
+    login() {
       let object = {
         login: this.loginEmail,
-        pss: this.loginPassword
-      }
-      this.loader = true
-      this.FazerLogin(object).then( response => {
-        if(this.getAuth){
-          this.loader=false
-          this.logged = true
-          this.closeDialogLogin()
-        }else{
-          
-          this.loader = false
-          this.snackMsg = this.getMessageLogin
-          this.snackErro = true
+        pss: this.loginPassword,
+      };
+      this.loader = true;
+      this.FazerLogin(object).then((response) => {
+        if (this.getAuth) {
+          this.loader = false;
+          this.logged = true;
+          this.closeDialogLogin();
+        } else {
+          this.loader = false;
+          this.snackMsg = this.getMessageLogin;
+          this.snackErro = true;
         }
       });
     },
     validate() {
       this.validateEmail(this.user.email);
       this.loader = true;
-      this.registrarUser(this.user).then((response) => {
-        console.log(this.getRespostaUser)
-        if (this.getRespostaUser) {
-          this.concludedRegister = true
-          this.snackErro = false;
-          this.loader = false;
-        } else {
-          this.concludedRegister = false
-          this.loader = false;
-          this.snackErro = true
-          this.snackMsg = this.getMessageUser;
-        }
-      });
+      if (this.termos && this.devolucao && this.privacidade) {
+        this.registrarUser(this.user).then((response) => {
+          console.log(this.getRespostaUser);
+          if (this.getRespostaUser) {
+            this.concludedRegister = true;
+            this.snackErro = false;
+            this.loader = false;
+          } else {
+            this.concludedRegister = false;
+            this.loader = false;
+            this.snackErro = true;
+            this.snackMsg = this.getMessageUser;
+          }
+        });
+      }
     },
     reset() {
       this.$refs.form.reset();
@@ -373,7 +482,7 @@ export default {
           //Sincroniza com o callback.
           var object;
           var instance = axios.create();
-            delete instance.defaults.headers.common['Authorization'];
+          delete instance.defaults.headers.common["Authorization"];
           await instance
             .get("https://viacep.com.br/ws/" + cep + "/json/")
             .then(function (response) {
@@ -413,6 +522,9 @@ export default {
     valid: true,
     email: "",
     password: "",
+    termos: false,
+    devolucao: false,
+    privacidade: false,
     verify: "",
     logged: false,
     snackErro: false,
@@ -421,6 +533,7 @@ export default {
     loginEmail: "",
     user: {
       firstName: "",
+      newsletter: false,
       lastName: "",
       email: "",
       password: "",
@@ -435,6 +548,7 @@ export default {
         cidade: "",
       },
     },
+
     loginEmailRules: [
       (v) => !!v || "Campo necessário",
       (v) => /.+@.+\..+/.test(v) || "E-mail inválido",
@@ -443,7 +557,9 @@ export default {
       (v) => !!v || "Campo necessário",
       (v) => /.+@.+\..+/.test(v) || "E-mail inválido",
     ],
-
+    termosrules: [
+       (v) => v || "Você precisa concordar com o termo",
+    ],
     show1: false,
     rules: {
       required: (value) => !!value || "Campo necessário",

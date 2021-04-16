@@ -1,14 +1,10 @@
 <template>
-  <v-footer
-    dark
-    padless
-    
-  >
+  <v-footer dark padless>
     <v-card
       flat
       tile
       class="indigo lighten-1 white--text text-center"
-        width="100%"
+      width="100%"
     >
       <v-card-text>
         <v-btn
@@ -25,44 +21,79 @@
       </v-card-text>
 
       <v-card-text class="white--text pt-0 font-weight-light">
-        Corre Cutia! todos os direitos reservados
+        Corre Cutia! todos os direitos reservados.
       </v-card-text>
 
       <v-divider></v-divider>
 
       <v-card-text class="white--text">
-       &copy; {{ new Date().getFullYear() }} — <strong>Corre Cutia!</strong>
+        <v-row no-gutters>
+          <v-col cols="12">
+            <div>
+              <router-link
+                to="/termosecondicoes"
+                tag="span"
+                style="cursor: pointer"
+                >Termos e Condições de Uso</router-link
+              >
+            </div>
+            <div>
+              <router-link
+                to="/politicadeprivacidade"
+                tag="span"
+                style="cursor: pointer"
+                >Política de Privacidade</router-link
+              >
+            </div>
+            <div>
+              <router-link
+                to="/politicadedevolucao"
+                tag="span"
+                style="cursor: pointer"
+                >Política de Troca e Devolução</router-link
+              >
+            </div>
+          </v-col>
+
+          <v-col cols="12">
+            <div class="pa-2">
+              &copy; {{ new Date().getFullYear() }} —
+              <strong>Corre Cutia!</strong>
+            </div>
+          </v-col>
+        </v-row>
       </v-card-text>
     </v-card>
   </v-footer>
 </template>
 <script>
-  export default {
-    data: () => ({
-      icons: [{
-          icon: 'mdi-instagram',
-          destiny: 'https://www.instagram.com/correcutia.oficial/'
+export default {
+  data: () => ({
+    icons: [
+      {
+        icon: "mdi-instagram",
+        destiny: "https://www.instagram.com/correcutia.oficial/",
       },
       {
-          icon: 'mdi-facebook',
-          destiny: 'https://www.facebook.com/correcutia.oficial/'
+        icon: "mdi-facebook",
+        destiny: "https://www.facebook.com/correcutia.oficial/",
       },
       {
-          icon: 'mdi-phone',
-          destiny: 'tel: 67998355896'
-      }
-      ],
-      methods:{
-          goFace(){
-              this.$router.push("/");
-          },
-          goInsta(){
-              this.$router.push("/homepageEmpresa");
-          },
-          goHome(){
-              this.$router.push("");
-          }
-      }
-    }),
-  }
+        icon: "mdi-phone",
+        destiny: "tel: 67998355896",
+      },
+    ],
+    methods: {
+      goFace() {
+        this.$router.push("/");
+      },
+      goInsta() {
+        this.$router.push("/homepageEmpresa");
+      },
+      goHome() {
+        this.$router.push("");
+      },
+    },
+  }),
+};
 </script>

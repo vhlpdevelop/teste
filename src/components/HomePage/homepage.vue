@@ -5,7 +5,7 @@
       rel="stylesheet"
     />
 
-    <v-app-bar color="indigo" dark fixed app>
+    <v-app-bar class="app-bar" dark fixed app>
       <v-toolbar-title>
         <router-link to="/home" tag="span" style="cursor: pointer"
           ><v-icon>mdi-home</v-icon>Corre cutia</router-link
@@ -405,5 +405,7 @@ export default {
 };
 </script>
 <style scoped>
-
+.app-bar{
+  background-image: linear-gradient(to right, blue , purple);
+}
 </style>

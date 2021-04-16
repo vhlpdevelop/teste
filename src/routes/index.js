@@ -47,6 +47,21 @@ export default new Router({
           component: () => import('../components/HomePage/InfoPage'),
         },
         {
+          path: '/termosecondicoes',
+          name: 'termosecondicoes',
+          component: () => import('../components/HomePage/termosdeuso'),
+        },
+        {
+          path: '/politicadeprivacidade',
+          name: 'politicaprivacidade',
+          component: () => import('../components/HomePage/politicadeprivacidade'),
+        },
+        {
+          path: '/politicadedevolucao',
+          name: 'politicadevolucao',
+          component: () => import('../components/HomePage/politicadedevolucao'),
+        },
+        {
           path: '/shop',
           name: 'shop',
           props:true,

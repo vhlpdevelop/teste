@@ -164,6 +164,16 @@
                 </v-col>
                 <v-col
                   cols="12"
+                  md="6"
+                >
+                  <v-checkbox
+                    color="primary"
+                    label="Concordo em receber as Newsletter"
+                    v-model="user.newsletter"
+                  />
+                </v-col>
+                <v-col
+                  cols="12"
                   class="text-right"
                 >
                   <v-btn
@@ -286,6 +296,7 @@ export default {
       firstName: "",
       lastName: "",
       email: "",
+      newsletter: "",
       telefone: "",
       password: "",
       newPassword: "",
@@ -310,6 +321,7 @@ export default {
         this.user.endereco.rua =this.getUser.endereco.rua
         this.user.endereco.num =this.getUser.endereco.num
         this.user.endereco.cep =this.getUser.endereco.cep
+        this.user.newsletter = this.getUser.newsletter
         this.user.endereco.complemento =this.getUser.endereco.complemento
         this.user.endereco.bairro =this.getUser.endereco.bairro
         this.user.endereco.estado = this.getUser.endereco.estado

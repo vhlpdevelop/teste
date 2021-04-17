@@ -3,7 +3,7 @@
     <v-card
       flat
       tile
-      class="indigo lighten-1 white--text text-center"
+      class="footer-bar white--text text-center"
       width="100%"
     >
       <v-card-text>
@@ -97,3 +97,8 @@ export default {
   }),
 };
 </script>
+<style scoped>
+.footer-bar{
+  background-image: linear-gradient(to right, rgba(207, 153, 95)5% , rgba(219, 173, 106) 90%, rgba(207, 153, 95));
+}
+</style>

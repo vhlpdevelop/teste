@@ -122,16 +122,22 @@
           <v-simple-table>
             <template v-slot:default>
               <tbody>
-                <tr>
-                  <td>Total</td>
+                <tr v-show="checkDesconto">
+                  <td>Total sem Desconto</td>
                   <td class="text-right" style="width: 50px">
-                    <b>R${{ total }}</b>
+                    <b><s>R${{ (parseFloat(total)+parseFloat(desconto)).toFixed(2) }}</s></b>
                   </td>
                 </tr>
                 <tr v-show="checkDesconto">
                   <td class="green--text">Desconto</td>
                   <td class="text-right">
                     <b>R${{ desconto }}</b>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Total</td>
+                  <td class="text-right" style="width: 50px">
+                    <b>R${{ total }}</b>
                   </td>
                 </tr>
               </tbody>
@@ -224,6 +230,7 @@ export default {
     },
     addOnCart(item) {
       this.addCart(item);
+      this.checkDesconto = false
       this.updateTotal();
     },
     updateTotal() {
@@ -255,6 +262,7 @@ export default {
     cartRemove(item) {
       //Função remover item do cart
       this.DeleteItem(item).then((response) => {
+        this.checkDesconto = false
         this.updateTotal();
       });
     },

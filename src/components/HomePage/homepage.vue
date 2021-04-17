@@ -406,6 +406,6 @@ export default {
 </script>
 <style scoped>
 .app-bar{
-  background-image: linear-gradient(to right, blue , purple);
+  background-image: linear-gradient(to right, rgba(207, 153, 95)5% , rgba(219, 173, 106) 90%, rgba(207, 153, 95));
 }
 </style>

@@ -5,7 +5,7 @@
         >
         <v-img :src="item" height="100%">
           <v-row class="fill-height" align="center" justify="center">
-            <div class="display-2 lime--text text--lighten-2 pl-5 pr-5 hidden-sm-only">
+            <div class="text-shadow display-2 yellow--text pl-5 pr-5 hidden-sm-only">
               {{images.texts[i]}}
             </div>
             <br /> 
@@ -19,7 +19,7 @@
         >
         <v-img :src="item" height="100%">
           <v-row class="fill-height" align="center" justify="center">
-            <div class="display-2 lime--text text--lighten-2 pl-5 pr-5 hidden-sm-only">
+            <div class="text-shadow display-2 yellow--text pl-5 pr-5 hidden-sm-only">
               <strong>{{images.texts[i]}}</strong>
             </div>
             <br /> 
@@ -162,7 +162,7 @@
         </v-col>
       </v-row>
     </v-container>
-    <v-card class="accent">
+    <v-card style="background-color: rgba(219, 206, 106)">
       <v-container>
         <v-row no-gutters>
           <v-col class="col-12 col-md-4 col-sm-12">
@@ -253,6 +253,9 @@ export default {
 };
 </script>
 <style>
+.text-shadow{
+  text-shadow: 2px 2px #000000;
+}
 .v-window__container--is-active {
     height: 100% !important;
 }

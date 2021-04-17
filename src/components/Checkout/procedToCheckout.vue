@@ -96,31 +96,44 @@
         style="background-color: lightgray"
       >
         <p class="headline">Informações finais</p>
-        <p class="overline">Selecione o tipo de entrega desejada, lembrando que o produto pode chegar de 7 até 15 dias</p>
+        <p class="overline">
+          Selecione o tipo de entrega desejada, lembrando que o produto pode
+          chegar de 7 até 15 dias
+        </p>
         <v-simple-table>
           <template v-slot:default>
             <tbody>
               <tr>
                 <td class="text-right" style="width: 50px">
-                <v-radio-group
-              v-model="frete"
-              column
-              @change="updateTotal()"
-                >
-              <v-radio
-                label="Sedex"
-                color="green"
-                :value="1"
-              ></v-radio>
-              <div><strong>R$ {{getFreteSedex}}</strong></div>
-              <v-radio
-                label="Pac"
-                color="blue"
-                :value="2"
-              ></v-radio>
-              <div><strong>R$ {{getFretePac}}</strong></div>
-                </v-radio-group>
-              </td>
+                  <v-radio-group v-model="frete" column @change="updateTotal()">
+                    <v-radio label="Sedex" color="green" :value="1"></v-radio>
+                    <div>
+                      <strong>R$ {{ getFreteSedex }}</strong>
+                    </div>
+                    <v-radio label="Pac" color="blue" :value="2"></v-radio>
+                    <div>
+                      <strong>R$ {{ getFretePac }}</strong>
+                    </div>
+                  </v-radio-group>
+                </td>
+              </tr>
+              <tr v-show="checkDesconto">
+                <td>Total sem Desconto</td>
+                <td class="text-right" style="width: 50px">
+                  <b
+                    ><s
+                      >R${{
+                        (parseFloat(total) + parseFloat(desconto)).toFixed(2)
+                      }}</s
+                    ></b
+                  >
+                </td>
+              </tr>
+              <tr v-show="checkDesconto">
+                <td class="green--text">Desconto</td>
+                <td class="text-right">
+                  <b>R${{ desconto }}</b>
+                </td>
               </tr>
               <tr>
                 <td>Total</td>
@@ -128,12 +141,6 @@
                   <b>R${{ total }}</b>
                 </td>
               </tr>
-              <tr v-show="checkDesconto">
-                  <td class="green--text">Desconto</td>
-                  <td class="text-right ">
-                    <b>R${{desconto}}</b>
-                  </td>
-                </tr>
             </tbody>
           </template>
         </v-simple-table>
@@ -148,12 +155,14 @@
         </div>
       </v-col>
       <div class="text-center pt-5">
-          
-          <v-img src="https://imgmp.mlstatic.com/org-img/MLB/MP/BANNERS/PSJ/575x40_banner_psj_3x.jpg" 
-alt="Mercado Pago - Meios de pagamento" title="Mercado Pago - Meios de pagamento" 
-height="40">
-          </v-img>
-        </div>
+        <v-img
+          src="https://imgmp.mlstatic.com/org-img/MLB/MP/BANNERS/PSJ/575x40_banner_psj_3x.jpg"
+          alt="Mercado Pago - Meios de pagamento"
+          title="Mercado Pago - Meios de pagamento"
+          height="40"
+        >
+        </v-img>
+      </div>
     </v-row>
   </v-container>
 </template>
@@ -219,7 +228,7 @@ export default {
       "checkOutPlan",
       "updateProfile",
       "fetchFrete",
-      "changeFrete"
+      "changeFrete",
     ]),
     calcularFrete() {
       this.loadingFrete = true;
@@ -231,29 +240,29 @@ export default {
     },
     updateTotal() {
       let valor = 0;
-      if(this.frete === 1){
+      if (this.frete === 1) {
         //SEDEX
-        valor = this.getFreteSedex
+        valor = this.getFreteSedex;
       }
-      if(this.frete === 2){
+      if (this.frete === 2) {
         //PAC
-        valor = this.getFretePac
+        valor = this.getFretePac;
       }
       this.total = 0;
       this.desconto = 0;
-       for (let i = 0; i < this.getCart.length; i++) {
+      for (let i = 0; i < this.getCart.length; i++) {
         if (this.getCart[i].qtd > 1) {
           this.checkDesconto = true;
         }
         this.total += this.getCart[i].preco * this.getCart[i].qtd;
       }
-      if(this.checkDesconto || this.getCart.length > 1){
-        this.checkDesconto = true
+      if (this.checkDesconto || this.getCart.length > 1) {
+        this.checkDesconto = true;
         this.desconto = this.total * 0.1;
-        this.desconto = this.desconto.toFixed(2)
-        this.total = this.total - (this.total * 0.1)
+        this.desconto = this.desconto.toFixed(2);
+        this.total = this.total - this.total * 0.1;
       }
-      if(this.valor !== 0){
+      if (this.valor !== 0) {
         this.total = parseFloat(this.total) + parseFloat(valor);
       }
       this.total = this.total.toFixed(2);
@@ -261,17 +270,17 @@ export default {
     payment() {
       this.loading = true;
       this.snackAlert = false;
-      let tipo = '';
-      let valor = 0
-      if(this.frete >0 && this.frete < 3){
-        if(this.frete === 1){
-          tipo = 'Sedex'
-          valor = this.getFreteSedex
+      let tipo = "";
+      let valor = 0;
+      if (this.frete > 0 && this.frete < 3) {
+        if (this.frete === 1) {
+          tipo = "Sedex";
+          valor = this.getFreteSedex;
         }
-        
-        if(this.frete === 2){
-          tipo = 'Pac'
-          valor = this.getFretePac
+
+        if (this.frete === 2) {
+          tipo = "Pac";
+          valor = this.getFretePac;
         }
       }
       //console.log(this.getUser);
@@ -290,7 +299,7 @@ export default {
         },
         endereco: this.user.endereco,
       };
-      console.log(object)
+      console.log(object);
       this.checkOutPlan(object).then((response) => {
         if (this.getStatus) {
           this.loading = false;
@@ -312,10 +321,9 @@ export default {
     },
     async pesquisacep(valor) {
       //Nova variável "cep" somente com dígitos.
-      this.changeFrete().then( () => {
-        this.frete = 0
-
-      })
+      this.changeFrete().then(() => {
+        this.frete = 0;
+      });
       var cep = valor.replace(/\D/g, "");
 
       //Verifica se campo cep possui valor informado.

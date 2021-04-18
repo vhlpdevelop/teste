@@ -108,11 +108,11 @@
                   <v-radio-group v-model="frete" column @change="updateTotal()">
                     <v-radio label="Sedex" color="green" :value="1"></v-radio>
                     <div>
-                      <strong>R$ {{ getFreteSedex }}</strong>
+                      <strong>R$ {{ getFreteSedex.valor }} - {{getFreteSedex.prazo}} dias</strong>
                     </div>
                     <v-radio label="Pac" color="blue" :value="2"></v-radio>
                     <div>
-                      <strong>R$ {{ getFretePac }}</strong>
+                      <strong>R$ {{ getFretePac.valor }} - {{getFretePac.prazo}} dias</strong>
                     </div>
                   </v-radio-group>
                 </td>
@@ -242,11 +242,11 @@ export default {
       let valor = 0;
       if (this.frete === 1) {
         //SEDEX
-        valor = this.getFreteSedex;
+        valor = this.getFreteSedex.valor;
       }
       if (this.frete === 2) {
         //PAC
-        valor = this.getFretePac;
+        valor = this.getFretePac.valor;
       }
       this.total = 0;
       this.desconto = 0;

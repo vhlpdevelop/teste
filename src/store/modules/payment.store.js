@@ -2,14 +2,20 @@
 
 import axios from "axios";
 
-const url = 'https://api-correcutia.herokuapp.com/mercadopago/'
-//const url = "http://localhost:3000/mercadopago/";
+//const url = 'https://api-correcutia.herokuapp.com/mercadopago/'
+const url = "http://localhost:3000/mercadopago/";
 const state = {
   sessionID: "",
   status: "",
   plan: "",
-  freteSedex: 0,
-  fretePac: 0,
+  freteSedex: {
+    valor: 0,
+    prazo: 0
+  },
+  fretePac: {
+    valor: 0,
+    prazo: 0
+  },
   freteCheck: false,
   paymentCheck: false,
   paymentData: '',
@@ -48,7 +54,8 @@ const actions = {
   async fetchFrete({commit}, itemData){
     try{
       await axios.post(url + "fetchFreteSedex", itemData).then( function(response){
-        commit("SetFreteSedex", response.data.valor)
+        commit("SetFreteSedex", response.data.result)
+        commit("SetFretePac", response.data.result)
         commit("SetFreteCheck", response.data.ok)
       }, (error)=>{ //Caso de erro
         commit("SetFreteSedex", '0')
@@ -56,19 +63,7 @@ const actions = {
       });
     }catch(e){
       console.log(e.message)
-      commit("SetFrete", '0')
-    }
-    try{
-      await axios.post(url + "fetchFretePac", itemData).then( function(response){
-        commit("SetFretePac", response.data.valor)
-        commit("SetFreteCheck", response.data.ok)
-      }, (error)=>{ //Caso de erro
-        commit("SetFretePac", '0')
-        commit("SetFreteCheck", false)
-      });
-    }catch(e){
-      console.log(e.message)
-      commit("SetFrete", '0')
+      commit("SetFreteCheck", false)
     }
   },
   async fetchPlan({commit}, itemData){
@@ -130,8 +125,10 @@ const mutations = {
   SetPaymentData: (state, paymentData) => (state.paymentData = paymentData),
   SetStatus: (state, status) => (state.status = status),
   SetPlan: (state, plan) => (state.plan = plan),
-  SetFreteSedex: (state, frete) => (state.freteSedex = frete),
-  SetFretePac: (state, frete) => (state.fretePac = frete),
+  SetFreteSedex: (state, frete) => {state.freteSedex.prazo = frete[0].PrazoEntrega
+  state.freteSedex.valor = frete[0].Valor},
+  SetFretePac: (state, frete) => {state.fretePac.prazo = frete[1].PrazoEntrega
+    state.fretePac.valor = frete[1].Valor},
   SetFreteCheck: (state, freteCheck) => (state.freteCheck = freteCheck)
 };
 

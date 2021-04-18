@@ -47,7 +47,7 @@ const actions = {
   },
   async fetchFrete({commit}, itemData){
     try{
-      await axios.post('https://cors-anywhere.herokuapp.com/'+url + "fetchFreteSedex", itemData).then( function(response){
+      await axios.post(url + "fetchFreteSedex", itemData).then( function(response){
         commit("SetFreteSedex", response.data.valor)
         commit("SetFreteCheck", response.data.ok)
       }, (error)=>{ //Caso de erro

@@ -275,12 +275,12 @@ export default {
       if (this.frete > 0 && this.frete < 3) {
         if (this.frete === 1) {
           tipo = "Sedex";
-          valor = this.getFreteSedex;
+          valor = this.getFreteSedex.valor;
         }
 
         if (this.frete === 2) {
           tipo = "Pac";
-          valor = this.getFretePac;
+          valor = this.getFretePac.valor;
         }
       }
       //console.log(this.getUser);

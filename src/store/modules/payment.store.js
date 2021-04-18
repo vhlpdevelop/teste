@@ -2,8 +2,8 @@
 
 import axios from "axios";
 
-//const url = 'https://api-correcutia.herokuapp.com/mercadopago/'
-const url = "http://localhost:3000/mercadopago/";
+const url = 'https://api-correcutia.herokuapp.com/mercadopago/'
+//const url = "http://localhost:3000/mercadopago/";
 const state = {
   sessionID: "",
   status: "",

@@ -9,11 +9,11 @@ const state = {
   status: "",
   plan: "",
   freteSedex: {
-    valor: 0,
+    valor: 0.0,
     prazo: 0
   },
   fretePac: {
-    valor: 0,
+    valor: 0.0,
     prazo: 0
   },
   freteCheck: false,
@@ -58,7 +58,6 @@ const actions = {
         commit("SetFretePac", response.data.result)
         commit("SetFreteCheck", response.data.ok)
       }, (error)=>{ //Caso de erro
-        commit("SetFreteSedex", '0')
         commit("SetFreteCheck", false)
       });
     }catch(e){
@@ -125,10 +124,12 @@ const mutations = {
   SetPaymentData: (state, paymentData) => (state.paymentData = paymentData),
   SetStatus: (state, status) => (state.status = status),
   SetPlan: (state, plan) => (state.plan = plan),
-  SetFreteSedex: (state, frete) => {state.freteSedex.prazo = frete[0].PrazoEntrega
-  state.freteSedex.valor = frete[0].Valor},
+  SetFreteSedex: (state, frete) => {
+    state.freteSedex.prazo = frete[0].PrazoEntrega
+  state.freteSedex.valor = parseFloat(frete[0].Valor.replace(",",".")).toFixed(2) },
   SetFretePac: (state, frete) => {state.fretePac.prazo = frete[1].PrazoEntrega
-    state.fretePac.valor = frete[1].Valor},
+
+    state.fretePac.valor = parseFloat(frete[1].Valor.replace(",",".")).toFixed(2)},
   SetFreteCheck: (state, freteCheck) => (state.freteCheck = freteCheck)
 };
 

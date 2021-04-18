@@ -242,11 +242,11 @@ export default {
       let valor = 0;
       if (this.frete === 1) {
         //SEDEX
-        valor = this.getFreteSedex.valor;
+        valor = parseFloat(parseFloat(this.getFreteSedex.valor).toFixed(2));
       }
       if (this.frete === 2) {
         //PAC
-        valor = this.getFretePac.valor;
+        valor = parseFloat(parseFloat(this.getFretePac.valor).toFixed(2));
       }
       this.total = 0;
       this.desconto = 0;
@@ -263,9 +263,9 @@ export default {
         this.total = this.total - this.total * 0.1;
       }
       if (valor !== 0) {
-        this.total = parseFloat(this.total) + parseFloat(valor).toFixed(2);
+        this.total = parseFloat(parseFloat(this.total).toFixed(2)) + parseFloat(parseFloat(valor).toFixed(2));
       }
-      this.total = this.total.toFixed(2);
+      this.total = parseFloat(this.total).toFixed(2);
     },
     payment() {
       this.loading = true;

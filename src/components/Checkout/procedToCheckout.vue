@@ -262,7 +262,7 @@ export default {
         this.desconto = this.desconto.toFixed(2);
         this.total = this.total - this.total * 0.1;
       }
-      if (this.valor !== 0) {
+      if (valor !== 0) {
         this.total = parseFloat(this.total) + parseFloat(valor).toFixed(2);
       }
       this.total = this.total.toFixed(2);

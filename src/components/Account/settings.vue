@@ -296,7 +296,7 @@ export default {
       firstName: "",
       lastName: "",
       email: "",
-      newsletter: "",
+      newsletter: false,
       telefone: "",
       password: "",
       newPassword: "",

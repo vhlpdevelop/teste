@@ -4,7 +4,7 @@
       <v-col cols="12" md="6">
         <v-card>
           <v-card>
-            <v-card-title>Informações dos produtos</v-card-title>
+            <v-card-title>Informações do Pedido</v-card-title>
             <v-card-subtitle
               >Produto pedido em
               {{ new Date(object.created).toLocaleString() }}</v-card-subtitle
@@ -12,18 +12,12 @@
             <v-row class="pa-5">
               <div v-for="(object, y) in object.items" :key="y">
                 <v-col cols="12" md="12">
-                  
-                      <v-avatar tile
-            class="elevation-10 mb-12"
-            size="128"
-          >
-            <v-img :src="object.picture_url"></v-img>
-            
-          </v-avatar>
-                    
+                  <v-avatar tile class="elevation-10 mb-12" size="128">
+                    <v-img :src="object.picture_url"></v-img>
+                  </v-avatar>
                 </v-col>
                 <v-col cols="12" md="12">
-                  <div style="font-size:small">{{ object.description }}</div>
+                  <div style="font-size: small">{{ object.description }}</div>
                 </v-col>
                 <v-col cols="12" md="12">
                   <div class="grey--text">Produto</div>
@@ -60,58 +54,90 @@
           <p class="overline">
             Produtos podem variar a entrega dependendo da quantidade
           </p>
-          <v-simple-table>
+          <v-simple-table style="width: 500px">
             <template v-slot:default>
               <tbody>
                 <div v-for="(item, i) in getCorreio" :key="i">
                   <tr>
-                    <td class="pl-2 pr-5">Data e Hora</td>
-                  </tr>
-                  <tr>
-                    <td class="pl-2 pr-5">Data e Hora</td>
-                    <td class="text-right">
-                      <b>{{ item.data }} = {{ item.hora }}</b>
+                    <td class="pl-2 pr-5">
+                      <div class="grey--text">
+                      Data e Hora
+                      </div>
+                    </td>
+                    <td class=" d-flex justify-end">
+                      <v-container>
+                        <b>{{ item.data }} {{ item.hora }}</b>
+                      </v-container>
                     </td>
                   </tr>
                   <tr>
-                    <td class="pl-2">Descrição</td>
-                    <td class="text-right">
-                      <b>{{ item.status }}</b>
+                    <td class="pl-2 pr-5">
+                       <div class="grey--text">
+                         Descrição
+                       </div>   
+                      </td>
+                    <td class=" d-flex justify-end">
+                      <v-container>
+                        <b class="flex-nowrap">{{ item.status }}</b>
+                      </v-container>
                     </td>
                   </tr>
                   <div>
-                  <tr v-if="item.local !== undefined">
-                    <td class="pl-2 pr-5">Local</td>
-                    <td class="text-right">
-                      <b>{{ item.local }}</b>
-                    </td>
-                  </tr>
+                    <tr v-if="item.local !== undefined">
+                      <td class="pl-2 pr-5">
+                         <div class="grey--text">
+                           Local
+                         </div>
+                         </td>
+                      <td class=" d-flex justify-end">
+                        <v-container>
+                          <b class="flex-nowrap">{{ item.local }}</b>
+                        </v-container>
+                      </td>
+                    </tr>
                   </div>
                   <div v-if="item.origem !== undefined">
-                  <tr>
-                    <td class="pl-2 pr-5">Origem</td>
-                    
-                    <td class="text-right">
-                      <b>{{ item.origem }}</b>
-                    </td>
-                  </tr>
-                  <tr>
-                      <td class="pl-2 pr-5">Destino</td>
-                    
-                    <td class="text-right">
-                      <b>{{ item.destino }}</b>
-                    </td>
-                  </tr>
+                    <tr>
+                      <td class="pl-2 pr-5">
+                         <div class="grey--text">
+                           Origem
+                         </div>
+                         </td>
+
+                      <td class=" d-flex justify-end">
+                        <v-container>
+                          <b class="flex-nowrap">{{ item.origem }}</b>
+                        </v-container>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="pl-2 pr-5">
+                         <div class="grey--text">
+                           Destino
+                         </div>
+                         </td>
+
+                      <td class=" d-flex justify-end">
+                        <v-container>
+                          <b class="flex-nowrap">{{ item.destino }}</b>
+                        </v-container>
+                      </td>
+                    </tr>
                   </div>
-                  
-                  <div v-if="getCorreio[i+1] === undefined" style="text-align: center; vertical-align: middle;">
-                      <v-icon> mdi-map-marker-check </v-icon>
-                      <p>Objeto entregue</p>
+
+                  <div
+                    v-if="getCorreio[i + 1] === undefined"
+                    style="text-align: center; vertical-align: middle"
+                  >
+                    <v-icon> mdi-map-marker-check </v-icon>
+                    <p class="green--text">Objeto entregue</p>
                   </div>
-                  <div v-else style="text-align: center; vertical-align: middle;">
-                      <v-icon> mdi-chevron-double-down </v-icon>
+                  <div
+                    v-else
+                    style="text-align: center; vertical-align: middle"
+                  >
+                    <v-icon color="yellow lighten-1"> mdi-chevron-double-down </v-icon>
                   </div>
-                  
                 </div>
               </tbody>
             </template>
